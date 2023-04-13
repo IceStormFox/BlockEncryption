@@ -48,14 +48,12 @@ namespace SzyfrBlokowyV5._3
 
         public static string HexToBinary(string input)
         {
-            //Conversion hex to bin
-            return input;
+            return Convert.ToString(Convert.ToInt32(input, 16), 2); ;
         }
 
         public static string BinaryToHex(string input)
         {
-            //Conversion bin to hex
-            return input;
+            return Convert.ToString(Convert.ToInt32(input, 2), 16).ToUpper(); ;
         }
     }
 }
