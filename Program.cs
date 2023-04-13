@@ -6,7 +6,6 @@ namespace SzyfrBlokowyV5._3
     {
         public static void Main()
         {
-            //add -> hexa input
             Console.WriteLine("Wprowadz cyfrę w formacie szesnastkowym o długości 2 znaków: ");
             string input = string.Empty;
             while (true)
@@ -26,8 +25,8 @@ namespace SzyfrBlokowyV5._3
                 Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
             }
 
-            string text = ConvertExtension.HexToBinary(input);
-            string key = ConvertExtension.HexToBinary(keyInput);
+            string text = ConvertExtension.HexToBinary(input).PadLeft(8, '0');
+            string key = ConvertExtension.HexToBinary(keyInput).PadLeft(8, '0');
 
 
             if ((text.Length == 8 && Regex.IsMatch(text, "^[01]+$")) && (key.Length == 8 && Regex.IsMatch(key, "^[01]+$")))
@@ -55,12 +54,19 @@ namespace SzyfrBlokowyV5._3
 
                 var function = FunctionEngine.FunctionS(boolArrText.Item2, keyArr);
 
-                //choice window
-                //1 encrypt -> FunctionEngine.Encrypt()
-                //2 decrypt -> FunctionEngine.Decrypt()
+                while (true)
+                {
+                    Console.WriteLine("Co chcesz zrobić?");
+                    Console.WriteLine("1. Szyfrowanie");
+                    Console.WriteLine("2. Deszyfrowanie");
+                    string choice = Console.ReadLine();
+                    if (choice == "1") { break; }
+                    if (choice == "2") { break; }
+                    else { Console.WriteLine("Podaj prawidłową wartość."); }
+                }
                 //display data on console
             }
-            else { Console.WriteLine("Wystąpił nieoczekiwany błąd"); }
+            else { Console.WriteLine("Wystąpił nieoczekiwany błąd. Wyjście z programu."); }
         }
     }
 }

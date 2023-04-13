@@ -31,15 +31,6 @@ namespace SzyfrBlokowyV5._3
             return (boolArrLeft, boolArrRight);
         }
 
-        public static (bool[], bool[]) SwitchArrays(bool[] arrLeft, bool[] arrRight)
-        {
-            bool[] temp = new bool[4];
-            temp = arrLeft;
-            arrLeft = arrRight;
-            arrRight = temp;
-            return (arrLeft, arrRight);
-        }
-
         public static (bool[], bool[], bool[], bool[]) KeyGenerator(bool[] boolArrLeft, bool[] boolArrRight)
         {
             uint round = 0;
@@ -48,6 +39,10 @@ namespace SzyfrBlokowyV5._3
             bool[] k2 = new bool[4];
             bool[] k3 = new bool[4];
             bool[] k4 = new bool[4];
+
+            //FOR 8 ROUNDS NOT 4!!
+            //NEEDS IMPROVEMENTS!!
+
             while (round < 4)
             {
                 if (round % 2 == 0)

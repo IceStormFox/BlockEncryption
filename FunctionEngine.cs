@@ -22,6 +22,10 @@ namespace SzyfrBlokowyV5._3
             tempString = tempString.Substring(tempString.Length - 8, 8);
             return ConvertExtension.StringToArray(tempString);
         }
+        public static void RoundEngine()
+        {
+            //main algorythm x 8 rounds
+        }
         public static void Encrypt(bool[] arrLeft)
         {
             //encrypting algorythm
@@ -38,22 +42,31 @@ namespace SzyfrBlokowyV5._3
         public static object FunctionS(bool[] arrRight, bool[,] keyItems)
         {
             bool[] tempKeys = new bool[4];
+
             for (int i = 0;i < 4;i++) { tempKeys[i] = keyItems[0, i]; }
             var func = new bool[]
             {
-                //passing the function to xor message and swapping
                 function1(arrRight, tempKeys),
                 function2(arrRight, tempKeys),
                 function3(arrRight, tempKeys),
                 function4(arrRight, tempKeys)
             };
             return func;
-            //calculating S function
         }
 
-        public static void ArraysXor()
+        public static bool[] ArraysXor(bool[] arrLeft, bool[] arrFunc)
         {
-            //xor function for arrays leading to swapping messages
+            bool[] tempArr = new bool[4];
+            for (int i = 0; i < 4;i++) { tempArr[i] = arrLeft[i] ^ arrFunc[i]; }
+            return tempArr;
+        }
+        public static (bool[], bool[]) SwitchArrays(bool[] arrLeft, bool[] arrRight)
+        {
+            bool[] temp; //= new bool[4];
+            temp = arrLeft;
+            arrLeft = arrRight;
+            arrRight = temp;
+            return (arrLeft, arrRight);
         }
     }
 }
