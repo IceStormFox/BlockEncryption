@@ -11,6 +11,7 @@ namespace SzyfrBlokowyV5._3
     {
         public static bool[] Merge(bool[] boolArrLeft, bool[] boolArrRight)
         {
+            //look for bugs
             bool[] boolArr = new bool[8];
             foreach (bool item in boolArrLeft) { boolArr.Append(item); }
             foreach (bool item in boolArrRight) { boolArr.Append(item); }
