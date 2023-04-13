@@ -9,20 +9,6 @@ namespace SzyfrBlokowyV5._3
 {
     public class KeyGeneratorEngine
     {
-        public static void InputToBoolArray(string input)
-        {
-            bool[] boolArrLeft = new bool[4];
-            bool[] boolArrRight = new bool[4];
-            char[] chars = input.ToCharArray();
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (chars[i] == '1' && i < 4) { boolArrLeft[i] = true; }
-                else if (chars[i] == '0' && i < 4) { boolArrLeft[i] = false; }
-                else if (chars[i] == '1' && i >= 4) { boolArrRight[i] = true; }
-                else { boolArrRight[i] = false; }
-            }
-            KeyGenerator(boolArrLeft, boolArrRight);
-        }
         public static bool[] Merge(bool[] boolArrLeft, bool[] boolArrRight)
         {
             foreach (bool item in boolArrRight) { boolArrLeft.Append(item); }
@@ -41,16 +27,67 @@ namespace SzyfrBlokowyV5._3
             }
             return (boolArrLeft, boolArrRight);
         }
-        public static void KeyGenerator(bool[] boolArrLeft, bool[] boolArrRight)
+
+        public static (bool[], bool[]) SwitchArrays(bool[] arrLeft, bool[] arrRight)
+        {
+            bool[] temp = new bool[4];
+            temp = arrLeft;
+            arrLeft = arrRight;
+            arrRight = temp;
+            return (arrLeft, arrRight);
+        }
+
+        public static (bool[], bool[], bool[], bool[]) KeyGenerator(bool[] boolArrLeft, bool[] boolArrRight)
         {
             uint round = 0;
             bool[] boolArr = new bool[8];
+            bool[] k1 = new bool[4];
+            bool[] k2 = new bool[4];
+            bool[] k3 = new bool[4];
+            bool[] k4 = new bool[4];
             while (round < 4)
             {
-                if (round % 2 == 0) { boolArr = Merge(boolArrLeft, boolArrRight); }
-                else { Split(boolArr); }
+                if (round % 2 == 0)
+                {
+                    if (round == 0)
+                    {
+                        k1.Append(boolArrLeft[0]);
+                        k1.Append(boolArrLeft[2]);
+                        k1.Append(boolArrRight[0]);
+                        k1.Append(boolArrRight[2]);
+                    }
+                    else
+                    {
+                        k3.Append(boolArrLeft[0]);
+                        k3.Append(boolArrLeft[2]);
+                        k3.Append(boolArrRight[0]);
+                        k3.Append(boolArrRight[2]);
+                    }
+                    boolArr = Merge(boolArrLeft, boolArrRight);
+                }
+                else
+                {
+                    if (round == 1)
+                    {
+                        k2.Append(boolArr[0]);
+                        k2.Append(boolArr[2]);
+                        k2.Append(boolArr[4]);
+                        k2.Append(boolArr[6]);
+                    }
+                    else
+                    {
+                        k4.Append(boolArr[0]);
+                        k4.Append(boolArr[2]);
+                        k4.Append(boolArr[4]);
+                        k4.Append(boolArr[6]);
+                    }
+                    var splitArr = Split(boolArr);
+                    boolArrLeft = splitArr.Item1;
+                    boolArrRight = splitArr.Item2;
+                }
                 round++;
             }
+            return (k1, k2, k3, k4);
         }
     }
 }
