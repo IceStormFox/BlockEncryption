@@ -30,7 +30,7 @@ namespace SzyfrBlokowyV5._3
             string key = ConvertExtension.HexToBinary(keyInput);
 
 
-            if (input.Length == 8 && Regex.IsMatch(input, "^[01]+$"))
+            if ((text.Length == 8 && Regex.IsMatch(text, "^[01]+$")) && (key.Length == 8 && Regex.IsMatch(key, "^[01]+$")))
             {
                 var boolArrKey = ConvertExtension.StringToDoubleBoolArray(key);
                 var keyItems = KeyGeneratorEngine.KeyGenerator(boolArrKey.Item1, boolArrKey.Item2);
@@ -43,10 +43,13 @@ namespace SzyfrBlokowyV5._3
                 {
                     for (int j = 0; j < 4; j++) 
                     {
-                        if (i == 0) { keyArr[i, j] = keyItems.Item1[j]; }
-                        if (i == 1) { keyArr[i, j] = keyItems.Item2[j]; }
-                        if (i == 2) { keyArr[i, j] = keyItems.Item3[j]; }
-                        if (i == 3) { keyArr[i, j] = keyItems.Item4[j]; }
+                        switch (i)
+                        {
+                            case 0: keyArr[i, j] = keyItems.Item1[j]; break;
+                            case 1: keyArr[i, j] = keyItems.Item2[j]; break;
+                            case 2: keyArr[i, j] = keyItems.Item3[j]; break;
+                            case 3: keyArr[i, j] = keyItems.Item4[j]; break;
+                        }
                     }
                 }
 
