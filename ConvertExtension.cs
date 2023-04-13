@@ -17,8 +17,8 @@ namespace SzyfrBlokowyV5._3
             {
                 if (chars[i] == '1' && i < 4) { boolArrLeft[i] = true; }
                 else if (chars[i] == '0' && i < 4) { boolArrLeft[i] = false; }
-                else if (chars[i] == '1' && i >= 4) { boolArrRight[i] = true; }
-                else { boolArrRight[i] = false; }
+                else if (chars[i] == '1' && i >= 4) { boolArrRight[i-4] = true; }
+                else { boolArrRight[i-4] = false; }
             }
             return (boolArrLeft, boolArrRight);
         }

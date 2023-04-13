@@ -11,8 +11,10 @@ namespace SzyfrBlokowyV5._3
     {
         public static bool[] Merge(bool[] boolArrLeft, bool[] boolArrRight)
         {
-            foreach (bool item in boolArrRight) { boolArrLeft.Append(item); }
-            return boolArrLeft;
+            bool[] boolArr = new bool[8];
+            foreach (bool item in boolArrLeft) { boolArr.Append(item); }
+            foreach (bool item in boolArrRight) { boolArr.Append(item); }
+            return boolArr;
         }
         public static (bool[], bool[]) Split(bool[] boolArr)
         {
@@ -51,17 +53,17 @@ namespace SzyfrBlokowyV5._3
                 {
                     if (round == 0)
                     {
-                        k1.Append(boolArrLeft[0]);
-                        k1.Append(boolArrLeft[2]);
-                        k1.Append(boolArrRight[0]);
-                        k1.Append(boolArrRight[2]);
+                        k1[0] = boolArrLeft[0];
+                        k1[1] = boolArrLeft[2];
+                        k1[2] = boolArrRight[0];
+                        k1[3] = boolArrRight[2];
                     }
                     else
                     {
-                        k3.Append(boolArrLeft[0]);
-                        k3.Append(boolArrLeft[2]);
-                        k3.Append(boolArrRight[0]);
-                        k3.Append(boolArrRight[2]);
+                        k3[0] = boolArrLeft[0];
+                        k3[1] = boolArrLeft[2];
+                        k3[2] = boolArrRight[0];
+                        k3[3] = boolArrRight[2];
                     }
                     boolArr = Merge(boolArrLeft, boolArrRight);
                 }
@@ -69,17 +71,17 @@ namespace SzyfrBlokowyV5._3
                 {
                     if (round == 1)
                     {
-                        k2.Append(boolArr[0]);
-                        k2.Append(boolArr[2]);
-                        k2.Append(boolArr[4]);
-                        k2.Append(boolArr[6]);
+                        k2[0] = boolArr[0];
+                        k2[1] = boolArr[2];
+                        k2[2] = boolArr[4];
+                        k2[3] = boolArr[6];
                     }
                     else
                     {
-                        k4.Append(boolArr[0]);
-                        k4.Append(boolArr[2]);
-                        k4.Append(boolArr[4]);
-                        k4.Append(boolArr[6]);
+                        k4[0] = boolArr[0];
+                        k4[1] = boolArr[2];
+                        k4[2] = boolArr[4];
+                        k4[3] = boolArr[6];
                     }
                     var splitArr = Split(boolArr);
                     boolArrLeft = splitArr.Item1;
