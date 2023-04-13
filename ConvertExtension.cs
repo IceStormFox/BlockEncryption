@@ -8,7 +8,7 @@ namespace SzyfrBlokowyV5._3
 {
     public class ConvertExtension
     {
-        public static (bool[], bool[]) InputToBoolArray(string input)
+        public static (bool[], bool[]) StringToDoubleBoolArray(string input)
         {
             bool[] boolArrLeft = new bool[4];
             bool[] boolArrRight = new bool[4];

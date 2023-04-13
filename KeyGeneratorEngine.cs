@@ -11,12 +11,12 @@ namespace SzyfrBlokowyV5._3
     {
         public static bool[] Merge(bool[] boolArrLeft, bool[] boolArrRight)
         {
-            //look for bugs
-            bool[] boolArr = new bool[8];
-            foreach (bool item in boolArrLeft) { boolArr.Append(item); }
-            foreach (bool item in boolArrRight) { boolArr.Append(item); }
+            bool[] boolArr = new bool[boolArrLeft.Length + boolArrRight.Length];
+            boolArrLeft.CopyTo(boolArr, 0);
+            boolArrRight.CopyTo(boolArr, boolArrLeft.Length);
             return boolArr;
         }
+
         public static (bool[], bool[]) Split(bool[] boolArr)
         {
             bool[] boolArrLeft = new bool[4];
