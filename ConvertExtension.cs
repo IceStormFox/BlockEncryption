@@ -36,12 +36,10 @@ namespace SzyfrBlokowyV5._3
         public static bool[] StringToArray(string text)
         {
             bool[] arr = new bool[text.Length];
-            char[] chars = text.ToCharArray();
-
-            foreach (char c in chars)
+            for (int i = 0; i < text.Length; i++)
             {
-                if (c == '1') { arr.Append(true); }
-                else { arr.Append(false); }
+                if (text[i] == '1') { arr[i] = true; }
+                else { arr[i] = false; }
             }
             return arr;
         }

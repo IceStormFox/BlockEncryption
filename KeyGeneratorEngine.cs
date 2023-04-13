@@ -31,7 +31,7 @@ namespace SzyfrBlokowyV5._3
             return (boolArrLeft, boolArrRight);
         }
 
-        public static (bool[], bool[], bool[], bool[]) KeyGenerator(bool[] boolArrLeft, bool[] boolArrRight)
+        public static bool[][] KeyGenerator(bool[] boolArrLeft, bool[] boolArrRight)
         {
             uint round = 0;
             bool[] boolArr = new bool[8];
@@ -39,53 +39,28 @@ namespace SzyfrBlokowyV5._3
             bool[] k2 = new bool[4];
             bool[] k3 = new bool[4];
             bool[] k4 = new bool[4];
+            bool[] k5 = new bool[4];
+            bool[] k6 = new bool[4];
+            bool[] k7 = new bool[4];
+            bool[] k8 = new bool[4];
 
-            //FOR 8 ROUNDS NOT 4!!
-            //NEEDS IMPROVEMENTS!!
-
-            while (round < 4)
+            while (round < 8)
             {
-                if (round % 2 == 0)
+                switch (round)
                 {
-                    if (round == 0)
-                    {
-                        k1[0] = boolArrLeft[0];
-                        k1[1] = boolArrLeft[2];
-                        k1[2] = boolArrRight[0];
-                        k1[3] = boolArrRight[2];
-                    }
-                    else
-                    {
-                        k3[0] = boolArrLeft[0];
-                        k3[1] = boolArrLeft[2];
-                        k3[2] = boolArrRight[0];
-                        k3[3] = boolArrRight[2];
-                    }
-                    boolArr = Merge(boolArrLeft, boolArrRight);
-                }
-                else
-                {
-                    if (round == 1)
-                    {
-                        k2[0] = boolArr[0];
-                        k2[1] = boolArr[2];
-                        k2[2] = boolArr[4];
-                        k2[3] = boolArr[6];
-                    }
-                    else
-                    {
-                        k4[0] = boolArr[0];
-                        k4[1] = boolArr[2];
-                        k4[2] = boolArr[4];
-                        k4[3] = boolArr[6];
-                    }
-                    var splitArr = Split(boolArr);
-                    boolArrLeft = splitArr.Item1;
-                    boolArrRight = splitArr.Item2;
+                    case 0: k1 = new bool[] { boolArrLeft[0], boolArrLeft[2], boolArrRight[0], boolArrRight[2] }; boolArr = Merge(boolArrLeft, boolArrRight); break; 
+                    case 1: k2 = new bool[] { boolArr[0], boolArr[2], boolArr[4], boolArr[6] }; var splitArr = Split(boolArr); boolArrLeft = splitArr.Item1; boolArrRight = splitArr.Item2;break; 
+                    case 2: k3 = new bool[] { boolArrLeft[0], boolArrLeft[2], boolArrRight[0], boolArrRight[2] }; boolArr = Merge(boolArrLeft, boolArrRight); break;
+                    case 3: k4 = new bool[] { boolArr[0], boolArr[2], boolArr[4], boolArr[6] }; splitArr = Split(boolArr); boolArrLeft = splitArr.Item1; boolArrRight = splitArr.Item2; break;
+                    case 4: k5 = new bool[] { boolArrLeft[0], boolArrLeft[2], boolArrRight[0], boolArrRight[2] }; boolArr = Merge(boolArrLeft, boolArrRight); break;
+                    case 5: k6 = new bool[] { boolArr[0], boolArr[2], boolArr[4], boolArr[6] }; splitArr = Split(boolArr); boolArrLeft = splitArr.Item1; boolArrRight = splitArr.Item2; break;
+                    case 6: k7 = new bool[] { boolArrLeft[0], boolArrLeft[2], boolArrRight[0], boolArrRight[2] }; boolArr = Merge(boolArrLeft, boolArrRight); break;
+                    case 7: k8 = new bool[] { boolArr[0], boolArr[2], boolArr[4], boolArr[6] }; splitArr = Split(boolArr); boolArrLeft = splitArr.Item1; boolArrRight = splitArr.Item2; break;
                 }
                 round++;
             }
-            return (k1, k2, k3, k4);
+            bool[][] jaggeredArr = new bool[][] { k1, k2, k3, k4, k5, k6, k7, k8 };
+            return jaggeredArr;
         }
     }
 }

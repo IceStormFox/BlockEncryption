@@ -39,17 +39,14 @@ namespace SzyfrBlokowyV5._3
             //decrypting algorythm
         }
 
-        public static object FunctionS(bool[] arrRight, bool[,] keyItems)
+        public static object FunctionS(bool[] arrRight, bool[][] keyItems)
         {
-            bool[] tempKeys = new bool[4];
-
-            for (int i = 0;i < 4;i++) { tempKeys[i] = keyItems[0, i]; }
             var func = new bool[]
             {
-                function1(arrRight, tempKeys),
-                function2(arrRight, tempKeys),
-                function3(arrRight, tempKeys),
-                function4(arrRight, tempKeys)
+                function1(arrRight, keyItems[0]),
+                function2(arrRight, keyItems[0]),
+                function3(arrRight, keyItems[0]),
+                function4(arrRight, keyItems[0])
             };
             return func;
         }

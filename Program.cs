@@ -7,7 +7,7 @@ namespace SzyfrBlokowyV5._3
         public static void Main()
         {
             Console.WriteLine("Wprowadz cyfrę w formacie szesnastkowym o długości 2 znaków: ");
-            string input = string.Empty;
+            string input;
             while (true)
             {
                 input = Console.ReadLine();
@@ -16,7 +16,7 @@ namespace SzyfrBlokowyV5._3
                 Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
             }
             Console.WriteLine("Wprowadź klucz w formacie szesnastkowym o długości 2 znaków: ");
-            string keyInput = string.Empty;
+            string keyInput;
             while (true)
             {
                 keyInput = Console.ReadLine();
@@ -36,23 +36,7 @@ namespace SzyfrBlokowyV5._3
 
                 var boolArrText = ConvertExtension.StringToDoubleBoolArray(text);
 
-                bool[,] keyArr = new bool[4, 4];
-
-                for (int i = 0;i < 4; i++) 
-                {
-                    for (int j = 0; j < 4; j++) 
-                    {
-                        switch (i)
-                        {
-                            case 0: keyArr[i, j] = keyItems.Item1[j]; break;
-                            case 1: keyArr[i, j] = keyItems.Item2[j]; break;
-                            case 2: keyArr[i, j] = keyItems.Item3[j]; break;
-                            case 3: keyArr[i, j] = keyItems.Item4[j]; break;
-                        }
-                    }
-                }
-
-                var function = FunctionEngine.FunctionS(boolArrText.Item2, keyArr);
+                var function = FunctionEngine.FunctionS(boolArrText.Item2, keyItems);
 
                 while (true)
                 {
