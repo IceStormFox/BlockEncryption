@@ -51,7 +51,7 @@ namespace SzyfrBlokowyV5._3
 
         public static string BinaryToHex(string input)
         {
-            return Convert.ToString(Convert.ToInt32(input, 2), 16).ToUpper().PadRight(2, '0'); ;
+            return Convert.ToString(Convert.ToInt32(input, 2), 16).ToUpper().PadLeft(2, '0'); ;
         }
     }
 }

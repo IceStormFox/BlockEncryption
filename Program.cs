@@ -26,13 +26,13 @@ namespace SzyfrBlokowyV5._3
                 var keyItems = KeyGeneratorEngine.KeyGenerator(
                     ConvertExtension.StringToDoubleBoolArray(key).Item1, 
                     ConvertExtension.StringToDoubleBoolArray(key).Item2);
-                var function = (choice == "1") ? FunctionEngine.Encrypt(
+                var function = (choice == "1") ? FunctionEngine.RoundEngine(
                     ConvertExtension.StringToDoubleBoolArray(text).Item1, 
                     ConvertExtension.StringToDoubleBoolArray(text).Item2, 
-                    keyItems) : FunctionEngine.Decrypt(
+                    keyItems, Convert.ToInt32(choice)) : FunctionEngine.RoundEngine(
                         ConvertExtension.StringToDoubleBoolArray(text).Item1, 
                         ConvertExtension.StringToDoubleBoolArray(text).Item2, 
-                        keyItems);
+                        keyItems, Convert.ToInt32(choice));
                 Console.WriteLine((choice == "1") ? "\nWynik szyfrowania: " : "\nWynik odszyfrowania: ");
                 Console.WriteLine(ConvertExtension.BinaryToHex(function));
 

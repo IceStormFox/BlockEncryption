@@ -9,6 +9,7 @@ namespace SzyfrBlokowyV5._3
 {
     public class KeyGeneratorEngine
     {
+        #region TableModifiers
         public static bool[] BitShiftLeft(bool[] boolArr, int size)
         {
             bool[] shiftedArr = new bool[boolArr.Length];
@@ -37,7 +38,7 @@ namespace SzyfrBlokowyV5._3
             }
             return (boolArrLeft, boolArrRight);
         }
-
+        #endregion
 
         public static bool[][] KeyGenerator(bool[] boolArrLeft, bool[] boolArrRight)
         {
