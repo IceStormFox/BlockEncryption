@@ -23,8 +23,7 @@ namespace SzyfrBlokowyV5._3
                 while (true)
                 {
                     Console.WriteLine("Wprowadz cyfrę w formacie szesnastkowym o długości 2 znaków: ");
-                    input = Console.ReadLine();
-                    input = input.Trim();
+                    input = Console.ReadLine().Trim();
                     if (input.Length == 2 && Regex.IsMatch(input, "^[0-9A-F]+$")) { break; }
                     Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
                 }
@@ -32,8 +31,7 @@ namespace SzyfrBlokowyV5._3
                 while (true)
                 {
                     Console.WriteLine("Wprowadź klucz w formacie szesnastkowym o długości 2 znaków: ");
-                    keyInput = Console.ReadLine();
-                    keyInput = keyInput.Trim();
+                    keyInput = Console.ReadLine().Trim();
                     if (keyInput.Length == 2 && Regex.IsMatch(input, "^[0-9A-F]+$")) { break; }
                     Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
                 }
@@ -45,9 +43,18 @@ namespace SzyfrBlokowyV5._3
                 var keyItems = KeyGeneratorEngine.KeyGenerator(boolArrKey.Item1, boolArrKey.Item2);
 
                 var boolArrText = ConvertExtension.StringToDoubleBoolArray(text);
+
                 string function;
-                if (choice == "1") { function = FunctionEngine.Encrypt(boolArrText.Item1, boolArrText.Item2, keyItems); Console.WriteLine("Wynik szyfrowania: "); }
-                else { function = FunctionEngine.Decrypt(boolArrText.Item1, boolArrText.Item2, keyItems); Console.WriteLine("Wynik odszyfrowania: "); }
+                if (choice == "1") 
+                { 
+                    function = FunctionEngine.Encrypt(boolArrText.Item1, boolArrText.Item2, keyItems); 
+                    Console.WriteLine("Wynik szyfrowania: "); 
+                }
+                else 
+                { 
+                    function = FunctionEngine.Decrypt(boolArrText.Item1, boolArrText.Item2, keyItems); 
+                    Console.WriteLine("Wynik odszyfrowania: "); 
+                }
                 Console.WriteLine(ConvertExtension.BinaryToHex(function));
 
                 Console.WriteLine("Kontynuować?\n1.Tak\n2.Nie");
