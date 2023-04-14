@@ -10,25 +10,20 @@
 
         public static bool[] RoundEngine(bool[] arrLeft, bool[] arrRight, bool[][] keyItems, int choice)
         {
-            uint round = 0;
-            if (choice == 1) { keyItems = ReverseKeys(keyItems); }
-            while (round < 8)
+            if (choice == 1) keyItems = ReverseKeys(keyItems);
+
+            for (int round = 0; round < 8; round++)
             {
                 bool[] func = FunctionS(arrRight, keyItems[round]);
                 bool[] xor = ArraysXor(arrLeft, func);
 
-                if (round < 7)
-                {
-                    var switchArr = SwitchArrays(xor, arrRight);
-                    arrLeft = switchArr.Item1;
-                    arrRight = switchArr.Item2;
-                }
-                else { arrLeft= xor; }
-                round++;
+                if (round < 7) (arrLeft, arrRight) = SwitchArrays(xor, arrRight);
+                else arrLeft = xor;
             }
-            bool[] result = KeyGeneratorEngine.Merge(arrLeft, arrRight);
-            return result;
+
+            return KeyGeneratorEngine.Merge(arrLeft, arrRight);
         }
+
         public static string Encrypt(bool[] arrLeft, bool[] arrRight, bool[][] keyItems)
         {
             bool[] result = RoundEngine(arrLeft, arrRight, keyItems, 0);
@@ -60,18 +55,15 @@
         }
         public static (bool[], bool[]) SwitchArrays(bool[] arrLeft, bool[] arrRight)
         {
-            bool[] temp;
-            temp = arrLeft;
-            arrLeft = arrRight;
-            arrRight = temp;
+            (arrLeft, arrRight) = (arrRight, arrLeft);
             return (arrLeft, arrRight);
         }
+
         public static bool[][] ReverseKeys(bool[][] keyItems)
         {
             for (int i = 0; i < keyItems.Length / 2; i++)
             {
-                bool[] temp;
-                temp = keyItems[i];
+                bool[] temp = keyItems[i];
                 keyItems[i] = keyItems[7 - i];
                 keyItems[7 - i] = temp;
             }

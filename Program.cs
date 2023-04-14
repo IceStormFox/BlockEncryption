@@ -7,61 +7,51 @@ namespace SzyfrBlokowyV5._3
         public static void Main()
         {
             Console.WriteLine("Szyfry blokowe - Patryk Kozłowski");
-            string choice;
-            string input;
-            string keyInput;
+            string choice, input, keyInput;
+
             while (true)
             {
-                while (true)
+                do
                 {
                     Console.WriteLine("\nWybierz typ działania:\n1.Szyfrowanie\n2.Odszyfrowanie");
                     choice = Console.ReadLine();
-                    if (choice == "1" || choice == "2") { break; }
-                    Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
-                }
+                } 
+                while (choice != "1" && choice != "2");
 
-                while (true)
-                {
-                    Console.WriteLine("Wprowadz cyfrę w formacie szesnastkowym o długości 2 znaków: ");
-                    input = Console.ReadLine().Trim();
-                    if (input.Length == 2 && Regex.IsMatch(input, "^[0-9A-F]+$")) { break; }
-                    Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
-                }
-
-                while (true)
-                {
-                    Console.WriteLine("Wprowadź klucz w formacie szesnastkowym o długości 2 znaków: ");
-                    keyInput = Console.ReadLine().Trim();
-                    if (keyInput.Length == 2 && Regex.IsMatch(input, "^[0-9A-F]+$")) { break; }
-                    Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
-                }
+                input = GetInput("Wprowadz cyfrę w formacie szesnastkowym o długości 2 znaków: ");
+                keyInput = GetInput("Wprowadź klucz w formacie szesnastkowym o długości 2 znaków: ");
 
                 string text = ConvertExtension.HexToBinary(input).PadLeft(8, '0');
                 string key = ConvertExtension.HexToBinary(keyInput).PadLeft(8, '0');
-
-                var boolArrKey = ConvertExtension.StringToDoubleBoolArray(key);
-                var keyItems = KeyGeneratorEngine.KeyGenerator(boolArrKey.Item1, boolArrKey.Item2);
-
-                var boolArrText = ConvertExtension.StringToDoubleBoolArray(text);
-
-                string function;
-                if (choice == "1") 
-                { 
-                    function = FunctionEngine.Encrypt(boolArrText.Item1, boolArrText.Item2, keyItems); 
-                    Console.WriteLine("Wynik szyfrowania: "); 
-                }
-                else 
-                { 
-                    function = FunctionEngine.Decrypt(boolArrText.Item1, boolArrText.Item2, keyItems); 
-                    Console.WriteLine("Wynik odszyfrowania: "); 
-                }
+                var keyItems = KeyGeneratorEngine.KeyGenerator(
+                    ConvertExtension.StringToDoubleBoolArray(key).Item1, 
+                    ConvertExtension.StringToDoubleBoolArray(key).Item2);
+                var function = (choice == "1") ? FunctionEngine.Encrypt(
+                    ConvertExtension.StringToDoubleBoolArray(text).Item1, 
+                    ConvertExtension.StringToDoubleBoolArray(text).Item2, 
+                    keyItems) : FunctionEngine.Decrypt(
+                        ConvertExtension.StringToDoubleBoolArray(text).Item1, 
+                        ConvertExtension.StringToDoubleBoolArray(text).Item2, 
+                        keyItems);
+                Console.WriteLine((choice == "1") ? "\nWynik szyfrowania: " : "\nWynik odszyfrowania: ");
                 Console.WriteLine(ConvertExtension.BinaryToHex(function));
 
-                Console.WriteLine("Kontynuować?\n1.Tak\n2.Nie");
-                string end = Console.ReadLine();
-                if (end != "1") { break; }
+                Console.WriteLine("\nKontynuować?\n1.Tak\n2.Nie");
+                if (Console.ReadLine().Equals("2")) { break; }
             }
             Console.WriteLine("Następuje wyjście z programu...");
         }
+
+        public static string GetInput(string message)
+        {
+            while (true)
+            {
+                Console.WriteLine(message);
+                string input = Console.ReadLine().Trim();
+                if (input.Length == 2 && Regex.IsMatch(input, "^[0-9A-F]+$")) { return input; }
+                Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
+            }
+        }
+
     }
 }
