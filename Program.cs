@@ -6,51 +6,55 @@ namespace SzyfrBlokowyV5._3
     {
         public static void Main()
         {
-            Console.WriteLine("Wprowadz cyfrę w formacie szesnastkowym o długości 2 znaków: ");
+            Console.WriteLine("Szyfry blokowe - Patryk Kozłowski");
+            string choice;
             string input;
-            while (true)
-            {
-                input = Console.ReadLine();
-                input = input.Trim();
-                if (input.Length == 2) { break; }
-                Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
-            }
-            Console.WriteLine("Wprowadź klucz w formacie szesnastkowym o długości 2 znaków: ");
             string keyInput;
             while (true)
             {
-                keyInput = Console.ReadLine();
-                keyInput = keyInput.Trim();
-                if (keyInput.Length == 2) { break; }
-                Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
-            }
+                while (true)
+                {
+                    Console.WriteLine("\nWybierz typ działania:\n1.Szyfrowanie\n2.Odszyfrowanie");
+                    choice = Console.ReadLine();
+                    if (choice == "1" || choice == "2") { break; }
+                    Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
+                }
 
-            string text = ConvertExtension.HexToBinary(input).PadLeft(8, '0');
-            string key = ConvertExtension.HexToBinary(keyInput).PadLeft(8, '0');
+                while (true)
+                {
+                    Console.WriteLine("Wprowadz cyfrę w formacie szesnastkowym o długości 2 znaków: ");
+                    input = Console.ReadLine();
+                    input = input.Trim();
+                    if (input.Length == 2 && Regex.IsMatch(input, "^[0-9A-F]+$")) { break; }
+                    Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
+                }
 
+                while (true)
+                {
+                    Console.WriteLine("Wprowadź klucz w formacie szesnastkowym o długości 2 znaków: ");
+                    keyInput = Console.ReadLine();
+                    keyInput = keyInput.Trim();
+                    if (keyInput.Length == 2 && Regex.IsMatch(input, "^[0-9A-F]+$")) { break; }
+                    Console.WriteLine("Nieprawidłowy format. Wprowadź jeszcze raz.");
+                }
 
-            if ((text.Length == 8 && Regex.IsMatch(text, "^[01]+$")) && (key.Length == 8 && Regex.IsMatch(key, "^[01]+$")))
-            {
+                string text = ConvertExtension.HexToBinary(input).PadLeft(8, '0');
+                string key = ConvertExtension.HexToBinary(keyInput).PadLeft(8, '0');
+
                 var boolArrKey = ConvertExtension.StringToDoubleBoolArray(key);
                 var keyItems = KeyGeneratorEngine.KeyGenerator(boolArrKey.Item1, boolArrKey.Item2);
 
                 var boolArrText = ConvertExtension.StringToDoubleBoolArray(text);
                 string function;
-                while (true)
-                {
-                    Console.WriteLine("Co chcesz zrobić?");
-                    Console.WriteLine("1. Szyfrowanie");
-                    Console.WriteLine("2. Deszyfrowanie");
-                    string choice = Console.ReadLine();
-                    if (choice == "1") { function = FunctionEngine.Encrypt(boolArrText.Item1, boolArrText.Item2, keyItems); Console.WriteLine("Wynik szyfrowania: "); break; }
-                    if (choice == "2") { function = FunctionEngine.Decrypt(boolArrText.Item1, boolArrText.Item2, keyItems); Console.WriteLine("Wynik odszyfrowania: "); break; }
-                    else { Console.WriteLine("Podaj prawidłową wartość."); }
-                }
+                if (choice == "1") { function = FunctionEngine.Encrypt(boolArrText.Item1, boolArrText.Item2, keyItems); Console.WriteLine("Wynik szyfrowania: "); }
+                else { function = FunctionEngine.Decrypt(boolArrText.Item1, boolArrText.Item2, keyItems); Console.WriteLine("Wynik odszyfrowania: "); }
                 Console.WriteLine(ConvertExtension.BinaryToHex(function));
-                //display data on console
+
+                Console.WriteLine("Kontynuować?\n1.Tak\n2.Nie");
+                string end = Console.ReadLine();
+                if (end != "1") { break; }
             }
-            else { Console.WriteLine("Wystąpił nieoczekiwany błąd. Wyjście z programu."); }
-            Console.ReadKey();
+            Console.WriteLine("Następuje wyjście z programu...");
         }
     }
 }
