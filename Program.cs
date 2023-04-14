@@ -35,22 +35,22 @@ namespace SzyfrBlokowyV5._3
                 var keyItems = KeyGeneratorEngine.KeyGenerator(boolArrKey.Item1, boolArrKey.Item2);
 
                 var boolArrText = ConvertExtension.StringToDoubleBoolArray(text);
-
-                var function = FunctionEngine.FunctionS(boolArrText.Item2, keyItems);
-
+                string function;
                 while (true)
                 {
                     Console.WriteLine("Co chcesz zrobić?");
                     Console.WriteLine("1. Szyfrowanie");
                     Console.WriteLine("2. Deszyfrowanie");
                     string choice = Console.ReadLine();
-                    if (choice == "1") { break; }
-                    if (choice == "2") { break; }
+                    if (choice == "1") { function = FunctionEngine.Encrypt(boolArrText.Item1, boolArrText.Item2, keyItems); Console.WriteLine("Wynik szyfrowania: "); break; }
+                    if (choice == "2") { function = FunctionEngine.Decrypt(boolArrText.Item1, boolArrText.Item2, keyItems); Console.WriteLine("Wynik odszyfrowania: "); break; }
                     else { Console.WriteLine("Podaj prawidłową wartość."); }
                 }
+                Console.WriteLine(ConvertExtension.BinaryToHex(function));
                 //display data on console
             }
             else { Console.WriteLine("Wystąpił nieoczekiwany błąd. Wyjście z programu."); }
+            Console.ReadKey();
         }
     }
 }
