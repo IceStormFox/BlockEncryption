@@ -33,17 +33,6 @@ namespace SzyfrBlokowyV5._3
             return result.ToString();
         }
 
-        public static bool[] StringToArray(string text)
-        {
-            bool[] arr = new bool[text.Length];
-            for (int i = 0; i < text.Length; i++)
-            {
-                if (text[i] == '1') { arr[i] = true; }
-                else { arr[i] = false; }
-            }
-            return arr;
-        }
-
         public static string HexToBinary(string input)
         {
             return Convert.ToString(Convert.ToInt32(input, 16), 2); ;
